@@ -4,10 +4,16 @@ import blogPosts from '../public/blogPosts';
 function App() {
   const [titolo, setTitle] = useState(null);
   const [Newarticolo, setArticolo] = useState("");
+  const [NewArray, setNewArray] = useState(blogPosts)
   const gestisciSubmit = (event) => {
     event.preventDefault();
-    const arrayCopy = [...Newarticolo];
-    setArticolo(arrayCopy)
+    const newPostArray = [...NewArray, {
+      id: NewArray[NewArray.length - 1].id + 1,
+      titolo: Newarticolo,
+      contenuto: "",
+    }]
+    setNewArray(newPostArray)
+
   }
 
 
@@ -24,7 +30,7 @@ function App() {
           />
           <button className="btn btn-primary" >Aggiungi</button>
         </form>
-        {blogPosts.map((curPost, index) => (
+        {NewArray.map((curPost, index) => (
           <div
             key={curPost.id}
             titolo={curPost.titolo}
